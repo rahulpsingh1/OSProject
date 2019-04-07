@@ -33,7 +33,7 @@ int num, i, t, reqType,b;
     {  printf("Pid : ");
        scanf("%d",&fac[facCount].PID);
        printf("enter time as a number, for ex: 10:00 as 1000\n");
-       printf("Arrival Time : ");
+       printf("Arrival Time : "); 
        scanf("%d", &t);
        if(t<1000 || t>1200){
         while(t<1000 || t>1200){
