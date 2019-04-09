@@ -1,16 +1,19 @@
 #include<stdio.h>
 
-int timeQuant;
+int timeQuant;      //time quantum of roundRobin algorithm
 
 struct req{
   int arriveTime, burstTime, PID;
+  /*here arriveTime is arrival time, burstTime denotes burst time,
+  PID gives pid of a process*/
   
-  
-  }fac[100], stu[100], mainLine[200];
-  int num,facCount=0,stuCount=0;
+}fac[100], stu[100], mainLine[200];
+  int num;               //total number of queries by people.
+  int facCount=0;       //number of faculty is facCount
+  int stuCount=0;      //number of studenta is stuCount
   
 void getData(){
-int num, i, t, reqType,b;
+int i, t, reqType,b;
   printf("Enter number of queries: ");
   scanf("%d", &num);
   
@@ -70,12 +73,88 @@ int num, i, t, reqType,b;
     }
     }
     }
-    
-    
-    main(){
+  
+
+void oneWorld(){
+	int onefacCount=0;          //for traversing the facultycount
+	int onestuCount=0;          //for traversing the studentcount
+	
+	if(facCount !=0 && stuCount!=0){
+		while(onefacCount < facCount && onestuCount < stuCount){
+			if(fac[onefacCount].arriveTime < stu[onestuCount].arriveTime){
+				mainLine[mergeCount] = fac[onefacCount];
+				mergeCount += 1;
+				onefacCount += 1;
+			}
+			else if(fac[onefacCount].arriveTime > stu[onestuCount].arriveTime){
+				mainLine[mergeCount] = stu[onestuCount];
+				mergeCount += 1;
+				onestuCount += 1;
+			}
+			else{
+				mainLine[mergeCount] = fac[onefacCount];
+				mergeCount += 1;
+				onefacCount += 1;
+				
+				mainLine[mergeCount] = stu[onestuCount];
+				mergeCount += 1;
+				onestuCount += 1;
+			}
+		}
+		if(mergeCount != (facCount + stuCount)){
+			if(stuCount != onestuCount){
+				
+				while(onestuCount != stuCount){
+				mainLine[mergeCount] = stu[onestuCount];
+				mergeCount += 1;
+				onestuCount += 1;
+			}
+			}
+			else if(facCount != onefacCount){
+				
+				while(onefacCount != facCount){
+				mainLine[mergeCount] = fac[onefacCount];
+				mergeCount += 1;
+				onefacCount += 1;
+			}
+		}
+	}
+	else if(facCount == 0){
+		while(onestuCount != stuCount){
+			mainLine[mergeCount] = stu[onestuCount];
+			mergeCount += 1;
+			onestuCount += 1;
+		}
+	}
+	else if(stuCount ==0){
+		while(onefacCount != facCount){
+			mainLine[mergeCount] = fac[onefacCount];
+			mergeCount += 1;
+			onefacCount += 1;
+		}
+	}
+	else{
+		printf("\n no job");
+	}
+}
+}
+//just for testing
+void testShow(){
+	int i;
+	//printf("\n%d",num);
+	for(i=0;i<num; i++){
+		//printf("%d",i);
+		printf("%d\n%d\n%d\n%d\n%d\n", num, facCount, stuCount, mainLine[i].arriveTime, mainLine[i].burstTime);
+	}
+}
+
+
+
+    int main(){
     getData();
-    
-    
+    oneWorld();
+    testShow();
+    return 0;
     }
   
   
