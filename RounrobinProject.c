@@ -130,7 +130,7 @@ void ShowData(){
 				  Sleep(100);
 	}
     for(i=0; i<num; i++){
-        if((mainLine[i].completionTime - mainLine[i].arriveTime) - mainLine[i].burstTime<0){
+        if((mainLine[i].completionTime - mainLine[i].arriveTime) - mainLine[i].burstTime<0 || (mainLine[i].completionTime + 1000)>1200){
             printf("   Sir with PID: %d, kindly come tomorrow. The given timeslot for today is over\n",mainLine[i].PID);
         }
     }
