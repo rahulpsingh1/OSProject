@@ -94,8 +94,10 @@ int i=0, t=0, reqType=0,b=0;
 }
 }
 
+
 void ShowData(){
-    int i;
+    int i,totalTime=0,sum;
+    double avg;
 
 	printf("\n\n\n Processing please wait");
 	for(i=0; i<4; i++){
@@ -128,12 +130,24 @@ void ShowData(){
 		          mainLine[i].burstTime, (mainLine[i].completionTime - mainLine[i].arriveTime) - mainLine[i].burstTime,
 				  (mainLine[i].completionTime + 1000), (mainLine[i].completionTime - mainLine[i].arriveTime) );
 				  Sleep(100);
+
+        totalTime = mainLine[i].completionTime;
+        sum += (mainLine[i].completionTime-mainLine[i].arriveTime);
+
 	}
+	avg =  sum/mergeCount;
+	printf("\n Total time spent for all queries: %d", totalTime);
+	printf("\nAverage Query Time: %lf\n", avg);
+
+
+
+
     for(i=0; i<num; i++){
-        if((mainLine[i].completionTime - mainLine[i].arriveTime) - mainLine[i].burstTime<0 || (mainLine[i].completionTime + 1000)>1200){
+        if(((mainLine[i].completionTime - mainLine[i].arriveTime) - mainLine[i].burstTime<0)||(mainLine[i].completionTime + 1000)>1200) {
             printf("   Sir with PID: %d, kindly come tomorrow. The given timeslot for today is over\n",mainLine[i].PID);
         }
     }
+    printf("\nProcess Execution Complete");
 	printf("\n");
 	for(i=0; i<120; i++){
 		printf("-");
